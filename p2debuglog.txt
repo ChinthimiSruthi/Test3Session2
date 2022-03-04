@@ -1,4 +1,4 @@
- gcc -g p1original.c
+ gcc -g p2final.c
  gdb a.out
 GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1
 Copyright (C) 2018 Free Software Foundation, Inc.
@@ -16,74 +16,103 @@ For help, type "help".
 Type "apropos word" to search for commands related to "word"...
 Reading symbols from a.out...done.
 (gdb) b main
-Breakpoint 1 at 0x8ca: file p1original.c, line 31.
+Breakpoint 1 at 0x8ab: file p2final.c, line 36.
 (gdb) r
-Starting program: /home/runner/Test3Session1/a.out 
+Starting program: /home/runner/Test3Session2-1/a.out 
 warning: Error disabling address space randomization: Operation not permitted
 
-Breakpoint 1, main () at p1original.c:31
-31  {
+Breakpoint 1, main () at p2final.c:36
+36    f1=input_fraction();
 (gdb) s
-33    input(&num1,&den1,&num2,&den2);
+input_fraction () at p2final.c:9
+9   {
 (gdb) s
-input (num1=0x7fff2aa5fd40, den1=0x7fff2aa5fd44, 
-    num2=0x7fff2aa5fd48, den2=0x7fff2aa5fd4c)
-    at p1original.c:4
-4     printf("Enter four numbers\n");
+11    printf("Enter the fraction\n");
 (gdb) n
-Enter four numbers
-5     scanf("%d%d%d%d",num1,den1,num2,den2);
+Enter the fraction
+12    scanf("%d%d",&f.num,&f.den);
 (gdb) n
 1 2
+13    return f;
+(gdb) n
+14  }
+(gdb) p f
+$1 = {num = 1, den = 2}
+(gdb) s
+main () at p2final.c:37
+37    f2=input_fraction();
+(gdb) s
+input_fraction () at p2final.c:9
+9   {
+(gdb) s
+11    printf("Enter the fraction\n");
+(gdb) n
+Enter the fraction
+12    scanf("%d%d",&f.num,&f.den);
+(gdb) n
 1 4
-6   }
-(gdb) p num1
-$1 = (int *) 0x7fff2aa5fd40
-(gdb) p *num1
-$2 = 1
-(gdb) p *den1
-$3 = 2
-(gdb) p *num2
-$4 = 1
-(gdb) p *den2
-$5 = 4
+13    return f;
+(gdb) n
+14  }
+(gdb) p f
+$2 = {num = 1, den = 4}
 (gdb) s
-main () at p1original.c:34
-34    add(num1,den1,num2,den2,&num3,&den3);
+main () at p2final.c:38
+38    f3=input_fraction();
 (gdb) s
-add (num1=1, den1=2, num2=1, den2=4, num3=0x7fff2aa5fd50, 
-    den3=0x7fff2aa5fd54) at p1original.c:20
-20    *num3=(num1*den2)+(num2*den1);
-(gdb) n
-21    *den3=den1*den2;
-(gdb) n
-22    int g=gcd(*num3,*den3);
-(gdb) n
-23    *num3/=g;
-(gdb) n
-24    *den3/=g;
-(gdb) n
-25  }
-(gdb) p *num3
-$6 = 3
-(gdb) p *den3
-$7 = 4
+input_fraction () at p2final.c:9
+9   {
 (gdb) s
-main () at p1original.c:35
-35    output(num1,den1,num2,den2,num3,den3);
+11    printf("Enter the fraction\n");
+(gdb) n
+Enter the fraction
+12    scanf("%d%d",&f.num,&f.den);
+(gdb) n
+3 7 
+13    return f;
+(gdb) n
+14  }
+(gdb) p f
+$3 = {num = 3, den = 7}
 (gdb) s
-output (num1=1, den1=2, num2=1, den2=4, num3=3, den3=4)
-    at p1original.c:28
-28    printf("%d/%d + %d/%d = %d/%d\n",num1,den1,num2,den2,num3,den3);
+main () at p2final.c:39
+39    smallest=find_smallest(f1,f2,f3);
+(gdb) s
+find_smallest (f1=..., f2=..., f3=...) at p2final.c:17
+17    int common_denominator=f1.den*f2.den*f3.den;
 (gdb) n
-1/2 + 1/4 = 3/4
-29  }
+18    int num1=f1.num*common_denominator/f1.den;
 (gdb) n
-main () at p1original.c:36
-36    return 0;
+19    int num2=f2.num*common_denominator/f2.den;
 (gdb) n
-38  }(gdb) c
+20    int num3=f3.num*common_denominator/f3.den;
+(gdb) n
+22    if(num1 < num2 &&  num1 <num3)
+(gdb) n
+24    else if(num2 < num3 && num2 < num1)
+(gdb) n
+25      return f2;
+(gdb) n
+28  }
+(gdb) p f2
+$4 = {num = 1, den = 4}
+(gdb) s
+main () at p2final.c:40
+40    output(f1,f2,f3,smallest);
+(gdb) s
+output (f1=..., f2=..., f3=..., smallest=...)
+    at p2final.c:31
+31    printf("The smallest of %d/%d , %d/%d , %d/%d is %d/%d\n",f1.num,f1.den,f2.num,f2.den,f3.num,f3.den,smallest.num,smallest.den);
+(gdb) n
+The smallest of 1/2 , 1/4 , 3/7 is 1/4
+32  }
+(gdb) n
+main () at p2final.c:41
+41    return 0;
+(gdb) n
+42  }
+(gdb) c
 Continuing.
-[Inferior 1 (process 913) exited normally]
+[Inferior 1 (process 725) exited normally]
 (gdb) 
 

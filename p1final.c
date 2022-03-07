@@ -1,7 +1,7 @@
 #include <stdio.h>
 void input(int *num1, int *den1, int *num2, int *den2)
 {
-  printf("Enter four numbers\n");
+  printf("Enter a fraction\n");
   scanf("%d%d%d%d",num1,den1,num2,den2);
 }
 int gcd(int a,int b)

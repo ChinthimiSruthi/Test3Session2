@@ -1,31 +1,27 @@
-#include <stdio.h>
-void input_n_and_r(int *n,int *r)
+#include<stdio.h>
+int input_n_and_r(int *n , int *r)
 {
-  printf("Enter two values\n");
-  scanf("%d%d",n,r);
+  printf("Enter values of n\n");
+  scanf("%d",n);
+  printf("Enter values of r\n");
+  scanf("%d",r);
 }
-int fact(int n)
+int factnCr(int n,int r)
 {
-  int i,f=1;
-  for(i=1;i<=n;i++)
-    {
-      f=f*i;
-    }
-  return f;
+  int result=1;
+  for(int i=1;i<=r;i++)
+  result=result*(n-i+1)/i;
+  return result;
 }
-int ncr(int n, int r)
+void output(int n,int r,int result)
 {
-  return fact(n)/(fact(r)*fact(n-r));
-}
-void output(int n, int r, int result)
-{
-  printf("%d\n",result);
+  printf("Value of %dC%d = %d\n",n,r,result);
 }
 int main()
 {
-  int n,r,result;
+  int n,r;
   input_n_and_r(&n,&r);
-  ncr(n,r);
+  int result=factnCr(n,r);
   output(n,r,result);
   return 0;
 }

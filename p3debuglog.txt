@@ -1,1 +1,94 @@
+ gcc -g p3final.c
+ gdb a.out
+GNU gdb (Ubuntu 8.1.1-0ubuntu1) 8.1.1
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from a.out...done.
+(gdb) b main
+Breakpoint 1 at 0x83c: file p3final.c, line 21.
+(gdb) r
+Starting program: /home/runner/Test3Session2-1/a.out 
+warning: Error disabling address space randomization: Operation not permitted
 
+Breakpoint 1, main () at p3final.c:21
+21  {
+(gdb) s
+23    input_n_and_r(&n,&r);
+(gdb) s
+input_n_and_r (n=0x7ffd0825483c, r=0x7ffd08254840) at p3final.c:4
+4     printf("Enter values of n\n");
+(gdb) n
+Enter values of n
+5     scanf("%d",n);
+(gdb) n
+6
+6     printf("Enter values of r\n");
+(gdb) n
+Enter values of r
+7     scanf("%d",r);
+(gdb) n
+5
+8   }
+(gdb) s
+main () at p3final.c:24
+24    int result=factnCr(n,r);
+(gdb) s
+factnCr (n=6, r=5) at p3final.c:11
+11    int result=1;
+(gdb) n
+12    for(int i=1;i<=r;i++)
+(gdb) n
+13    result=result*(n-i+1)/i;
+(gdb) n
+12    for(int i=1;i<=r;i++)
+(gdb) n
+13    result=result*(n-i+1)/i;
+(gdb) n
+12    for(int i=1;i<=r;i++)
+(gdb) n
+13    result=result*(n-i+1)/i;
+(gdb) n
+12    for(int i=1;i<=r;i++)
+(gdb) n
+13    result=result*(n-i+1)/i;
+(gdb) n
+12    for(int i=1;i<=r;i++)
+(gdb) n
+13    result=result*(n-i+1)/i;
+(gdb) n
+12    for(int i=1;i<=r;i++)
+(gdb) n
+14    return result;
+(gdb) n
+15  }
+(gdb) p result
+$1 = 6
+(gdb) s
+main () at p3final.c:25
+25    output(n,r,result);
+(gdb) s
+output (n=6, r=5, result=6) at p3final.c:18
+18    printf("Value of %dC%d = %d\n",n,r,result);
+(gdb) n
+Value of 6C5 = 6
+19  }
+(gdb) n
+main () at p3final.c:26
+26    return 0;
+(gdb) n
+27  }
+(gdb) c
+Continuing.
+[Inferior 1 (process 630) exited normally]
+(gdb) 
